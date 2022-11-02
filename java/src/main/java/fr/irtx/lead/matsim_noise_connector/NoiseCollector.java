@@ -1,6 +1,7 @@
 package fr.irtx.lead.matsim_noise_connector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.matsim.api.core.v01.population.Population;
 import org.matsim.contribs.discrete_mode_choice.replanning.time_interpreter.EndTimeThenDurationInterpreter;
 import org.matsim.contribs.discrete_mode_choice.replanning.time_interpreter.TimeInterpreter;
 import org.matsim.core.network.NetworkUtils;
+import org.matsim.core.network.algorithms.TransportModeNetworkFilter;
 import org.matsim.core.population.routes.NetworkRoute;
 import org.matsim.core.router.TripStructureUtils;
 import org.matsim.core.utils.collections.QuadTree;
@@ -57,7 +59,9 @@ public class NoiseCollector {
 
 	public void run(Scenario scenario, ConfigurationData config) {
 		Population population = scenario.getPopulation();
-		Network network = scenario.getNetwork();
+
+		Network network = NetworkUtils.createNetwork();
+		new TransportModeNetworkFilter(scenario.getNetwork()).filter(network, Collections.singleton("car"));
 
 		for (Person person : population.getPersons().values()) {
 			Plan plan = person.getSelectedPlan();
@@ -75,7 +79,7 @@ public class NoiseCollector {
 						Road road = roads.computeIfAbsent(linkId, id -> {
 							Road internal = new Road();
 							internal.link = link;
-							internal.speed = link.getFreespeed() / 3.6;
+							internal.speed = link.getFreespeed() * 3.6;
 							return internal;
 						});
 
@@ -118,7 +122,7 @@ public class NoiseCollector {
 							receiver.closestLinkDistance = CoordUtils.calcEuclideanDistance(location,
 									receiver.closestLink.getCoord());
 							receiver.location = location;
-							receiver.speed = receiver.closestLink.getFreespeed() / 3.6;
+							receiver.speed = receiver.closestLink.getFreespeed() * 3.6;
 
 							receivers.add(receiver);
 							receiverIndex.put(location.getX(), location.getY(), receiver);
