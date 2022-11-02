@@ -1,7 +1,10 @@
 set -e
 
-## Build connector
+## Prepare
+cd /home/ubuntu/irtx-matsim-noise-connector
+mkdir /home/ubuntu/irtx-matsim-noise-connector/output
 
+## Build connector
 cd /home/ubuntu/irtx-matsim-noise-connector/java
 mvn package
 cd /home/ubuntu/irtx-matsim-noise-connector
