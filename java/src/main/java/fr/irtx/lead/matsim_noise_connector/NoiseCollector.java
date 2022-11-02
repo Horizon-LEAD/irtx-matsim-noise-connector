@@ -76,17 +76,19 @@ public class NoiseCollector {
 					for (Id<Link> linkId : route.getLinkIds()) {
 						Link link = network.getLinks().get(linkId);
 
-						Road road = roads.computeIfAbsent(linkId, id -> {
-							Road internal = new Road();
-							internal.link = link;
-							internal.speed = link.getFreespeed() * 3.6;
-							return internal;
-						});
+						if (link != null) {
+							Road road = roads.computeIfAbsent(linkId, id -> {
+								Road internal = new Road();
+								internal.link = link;
+								internal.speed = link.getFreespeed() * 3.6;
+								return internal;
+							});
 
-						int category = mapping.noiseCategory - 1;
-						Verify.verify(category >= 0);
-						Verify.verify(category < 4);
-						road.flow[category] += 1.0 / mapping.samplingRate;
+							int category = mapping.noiseCategory - 1;
+							Verify.verify(category >= 0);
+							Verify.verify(category < 4);
+							road.flow[category] += 1.0 / mapping.samplingRate;
+						}
 					}
 				}
 			}
