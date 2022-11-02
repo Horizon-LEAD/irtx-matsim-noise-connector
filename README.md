@@ -2,7 +2,6 @@
 
 ## TODO
 
-- JSON
 - Test input and output data
 
 ## Introduction
