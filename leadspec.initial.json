@@ -1,0 +1,103 @@
+{
+    "name": "IRTX MATSim to Noise connector",
+    "description":"This model is a connector between the upstream MATSim model and the downstream Noise analysis model.",
+    "version": "1.0.0",
+    "status":"draft",
+    "types": [
+        {"name": "Connector", "description":"???"}
+    ],
+    "dockerImage":"???",
+    "url": "https://github.com/Horizon-LEAD/irtx-matsim-noise-connector",
+    "modelData":  [
+        {
+            "name": "Configuration path",
+            "variableName": "configuration-path",
+            "description": "Path to the configuration file",
+            "isOutput": false,
+            "isOutputDir": false,
+            "isOptional": false,
+            "inputType": "CLI",
+            "chartType": "NONE",
+            "modelDataType": {
+                "name": "file",
+                "dataType": "file",
+                "extension": "json"
+            }
+        },
+        {
+            "name": "MATSim network path",
+            "variableName": "network-path",
+            "description": "Path to the MATSim output network file",
+            "isOutput": false,
+            "isOutputDir": false,
+            "isOptional": false,
+            "inputType": "CLI",
+            "chartType": "NONE",
+            "modelDataType": {
+                "name": "file",
+                "dataType": "file",
+                "extension": "xml.gz"
+            }
+        },
+        {
+            "name": "MATSim plans path",
+            "variableName": "plans-path",
+            "description": "Path to the MATSim output plans file",
+            "isOutput": false,
+            "isOutputDir": false,
+            "isOptional": false,
+            "inputType": "CLI",
+            "chartType": "NONE",
+            "modelDataType": {
+                "name": "file",
+                "dataType": "file",
+                "extension": "xml.gz"
+            }
+        },
+        {
+            "name": "Receivers out path",
+            "variableName": "receivers-path",
+            "description": "Path to where the receiver results will be saved",
+            "isOutput": true,
+            "isOutputDir": false,
+            "isOptional": false,
+            "inputType": "CLI",
+            "chartType": "NONE",
+            "modelDataType": {
+                "name": "file",
+                "dataType": "file",
+                "extension": "csv"
+            }
+        },
+        {
+            "name": "Volumes out path",
+            "variableName": "receivers-path",
+            "description": "Path to where the volumes results will be saved",
+            "isOutput": true,
+            "isOutputDir": false,
+            "isOptional": false,
+            "inputType": "CLI",
+            "chartType": "NONE",
+            "modelDataType": {
+                "name": "file",
+                "dataType": "file",
+                "extension": "csv"
+            }
+        },
+        {
+            "name": "Memory",
+            "variableName": "Xmx",
+            "description": "Memory available to Java",
+            "isOutput": false,
+            "isOutputDir": false,
+            "isOptional": false,
+            "inputType": "CLI",
+            "chartType": "NONE",
+            "modelDataType": {
+                "name": "str",
+                "dataType": "str",
+                "regex": "[0-9]+[MG]"
+            }
+        }
+    ]
+}
