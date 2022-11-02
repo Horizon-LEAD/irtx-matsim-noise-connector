@@ -90,29 +90,42 @@ public class NoiseCollector {
 			TimeInterpreter timeInterpreter = new EndTimeThenDurationInterpreter(0.0, true);
 
 			for (PlanElement element : plan.getPlanElements()) {
+				if (element instanceof Activity) {
+					Activity activity = (Activity) element;
+
+					if (activity.getMaximumDuration().isUndefined() && activity.getEndTime().isUndefined()) {
+						activity.setEndTime(totalDuration);
+					}
+				}
+
 				double startTime = timeInterpreter.getCurrentTime();
 				timeInterpreter.addPlanElement(element);
 				double endTime = timeInterpreter.getCurrentTime();
 
-				if (element instanceof Activity) {
-					Activity activity = (Activity) element;
-					Coord location = activity.getCoord();
+				startTime = Math.min(startTime, totalDuration);
+				endTime = Math.min(endTime, totalDuration);
 
-					Receiver receiver = receiverIndex.getClosest(location.getX(), location.getY());
+				if (endTime > startTime) {
+					if (element instanceof Activity) {
+						Activity activity = (Activity) element;
+						Coord location = activity.getCoord();
 
-					if (receiver == null || CoordUtils.calcEuclideanDistance(location, receiver.location) > 10.0) {
-						receiver = new Receiver();
-						receiver.closestLink = NetworkUtils.getNearestLink(network, location);
-						receiver.closestLinkDistance = CoordUtils.calcEuclideanDistance(location,
-								receiver.closestLink.getCoord());
-						receiver.location = location;
-						receiver.speed = receiver.closestLink.getFreespeed() / 3.6;
+						Receiver receiver = receiverIndex.getClosest(location.getX(), location.getY());
 
-						receivers.add(receiver);
-						receiverIndex.put(location.getX(), location.getY(), receiver);
+						if (receiver == null || CoordUtils.calcEuclideanDistance(location, receiver.location) > 10.0) {
+							receiver = new Receiver();
+							receiver.closestLink = NetworkUtils.getNearestLink(network, location);
+							receiver.closestLinkDistance = CoordUtils.calcEuclideanDistance(location,
+									receiver.closestLink.getCoord());
+							receiver.location = location;
+							receiver.speed = receiver.closestLink.getFreespeed() / 3.6;
+
+							receivers.add(receiver);
+							receiverIndex.put(location.getX(), location.getY(), receiver);
+						}
+
+						receiver.persons += (endTime - startTime) / totalDuration;
 					}
-
-					receiver.persons += (endTime - startTime) / totalDuration;
 				}
 			}
 		}

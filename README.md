@@ -104,12 +104,12 @@ changed, it can be reused for multiple model runs. To test whether the `jar` has
 been build successfully, call
 
 ```bash
-java -cp /irtx-matsim-noise-connector/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim.RunVerification
+java -cp /irtx-matsim-noise-connector/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunVerification
 ```
 
 which should respond by the message `It works!`.
 
-# Running the model
+## Running the model
 
 To run the connector, the respective jar needs to be built first. It can then be
 started in the following way:
