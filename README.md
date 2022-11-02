@@ -1,9 +1,5 @@
 # IRTX MATSim to Noise connector
 
-## TODO
-
-- Test input and output data
-
 ## Introduction
 
 This model is a connector between the upstream MATSim model and the downstream
@@ -84,7 +80,7 @@ correspond to the sampling rate of the MATSim simulation. The relevant KPIs like
 distance and vehicle count is scaled accordingly by the inverse of the sampling
 rate.
 
-# Building the model
+## Building the model
 
 The connector model is provided as Java code. To run it, it first needs to be built using
 the Maven build system. For that purpose, one needs to enter the `java` directory
@@ -108,7 +104,7 @@ changed, it can be reused for multiple model runs. To test whether the `jar` has
 been build successfully, call
 
 ```bash
-java -cp /path/to/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim.RunVerification
+java -cp /irtx-matsim-noise-connector/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim.RunVerification
 ```
 
 which should respond by the message `It works!`.
@@ -119,7 +115,7 @@ To run the connector, the respective jar needs to be built first. It can then be
 started in the following way:
 
 ```bash
-java -Xmx12g -cp java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunNoiseConverter \
+java -Xmx12g -cp /irtx-matsim-noise-connector/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunNoiseConverter \
   --configuration-path /path/to/configuration.json \
   --network-path /path/to/output_network.xml.gz \
   --plans-path /path/to/output_plans.xml.gz \
@@ -144,16 +140,16 @@ Note that the memory available to Java can be configured using the `-Xmx` option
 ## Standard scenarios
 
 For the Lyon living lab, a configuration file has already been prepared in
-`data/lyon_configuration.json`. It can be used to prepare Noise data for the
+`data/configuration_lyon.json`. It can be used to prepare Noise data for the
 three main scenarios (Baseline 2022, UCC 2022, UCC 2030) as follows:
 
 ```bash
-java -Xmx12g -cp java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunNoiseConverter \
-  --configuration-path data/lyon_configuration.json \
-  --network-path /path/to/irtx-matsim/output/output_{scenario}/output_network.xml.gz \
-  --plans-path /path/to/irtx-matsim/output/output_{scenario}/output_plans.xml.gz \
-  --receivers-path output/receivers_{scenario}.csv \
-  --volumes-path output/volumes_{scenario}.csv
+java -Xmx12g -cp /irtx-matsim-noise-connector/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunNoiseConverter \
+  --configuration-path data/configuration_lyon.json \
+  --network-path /irtx-matsim/output/output_{scenario}/output_network.xml.gz \
+  --plans-path /irtx-matsim/output/output_{scenario}/output_plans.xml.gz \
+  --receivers-path /irtx-matsim-noise-connector/output/receivers_{scenario}.csv \
+  --volumes-path /irtx-matsim-noise-connector/output/volumes_{scenario}.csv
 ```
 
 Here, `{scenario} = baseline_2022 | ucc_2022 | ucc_2030`
