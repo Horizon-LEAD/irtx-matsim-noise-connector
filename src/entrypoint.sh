@@ -79,7 +79,7 @@ fi
 ##############################################################################
 # Execution                                                                  #
 ##############################################################################
-java -Xmx12g -cp /home/ubuntu/irtx-matsim-noise-connector/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunNoiseConverter \
+java -Xmx12g -cp /srv/app/java/target/lead-matsim-noise-connector-1.0.0.jar fr.irtx.lead.matsim_noise_connector.RunNoiseConverter \
     --configuration-path ${CONFIG} \
     --network-path ${NETWORK} \
     --plans-path ${PLANS} \
