@@ -154,3 +154,13 @@ java -Xmx12g -cp /irtx-matsim-noise-connector/java/target/lead-matsim-noise-conn
 
 Here, `{scenario} = baseline_2022 | ucc_2022 | ucc_2030`
 according to the respective scenario.
+
+```
+docker run --rm \
+  -v $PWD/sample-data:/data \
+  matsim-irtx-2-noise:latest \
+  /data/input/configuration_lyon.json \
+  /data/input/output_plans.xml.gz \
+  /data/input/output_network.xml.gz \
+  /data/output
+```
