@@ -15,10 +15,6 @@ RUN cd /tmp \
 
 ENV PATH=/root/java/jdk-11.0.9.1+1/bin:/root/maven/apache-maven-3.6.3/bin:$PATH
 
-RUN java -version && which java \
-    && mvn -v && which mvn \
-    && echo $PATH
-
 COPY ./java/src /srv/app/java/src
 COPY ./java/pom.xml /srv/app/java/
 RUN cd /srv/app/java \
@@ -26,7 +22,7 @@ RUN cd /srv/app/java \
     && cd -
 
 ENV TERM=xterm
-COPY src/entrypoint.sh /srv/app/src
+COPY src/entrypoint.sh /srv/app/src/
 RUN chmod +x /srv/app/src/entrypoint.sh
 
 ENTRYPOINT [ "/srv/app/src/entrypoint.sh" ]
